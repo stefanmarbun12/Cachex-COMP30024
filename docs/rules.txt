@@ -1,0 +1,6 @@
+Each player has to join the sides
+of their colour with an unbroken chain.
+Only unoccupied tiles can be marked,
+but you can also capture tiles by
+completing symmetric diamonds.
+Good luck!
