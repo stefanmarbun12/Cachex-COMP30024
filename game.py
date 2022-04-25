@@ -1,3 +1,10 @@
+"""
+COMP30024 Artificial Intelligence, Semester 1, 2022
+Testing tool for Project Part B
+Extension on https://github.com/ANDREYDEN/Hex-Game for Cachex, by Stefan Marbun
+Please use this code for testing purposes only, do not copy anything directly to use in your project submission
+"""
+
 import pygame as pg
 import sys
 from os import path

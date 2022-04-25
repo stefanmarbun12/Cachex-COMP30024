@@ -29,4 +29,7 @@ Major credit goes to Andrii Denysenko, who wrote the Pygame program for the orig
 Hopefully you'll find this program super useful for the project! I'll be super happy knowing this program helped make
 some killer Cachex players, so do give this repo a star if you ended up using it. 
 And of course, feel free to make your own local customisations on this code however you see fit.
+(But please don't copy any of the code directly to use in your project submission, I'm providing this for testing purposes only.)
+
+Good luck on the assignment!
 
