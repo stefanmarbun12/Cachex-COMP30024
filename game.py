@@ -73,10 +73,13 @@ class Game:
                         return
 
                     self.validate_move(r, c)
+                    if self.check_win():
+                        return
 
                     # AI opponent's next turn
                     if self.AI:
                         self.AI.turn("red", ("PLACE", r, c))
+                        print(f"Updated state with ({r},{c})")
                         action = self.AI.action()
                         move_type = action[0]
                         if move_type == "PLACE":
@@ -93,13 +96,15 @@ class Game:
 
                         if move_type == "PLACE":
                             self.AI.turn("blue", ("PLACE", next_r, next_c))
+                            print(f"Updated state with ({next_r},{next_c})")
                         elif move_type == "STEAL":
                             self.AI.turn("blue", ("STEAL",))
+                            print(f"Updated state with steal")
                     return
 
     def validate_move(self, r, c):
         """Updates game state with the new move if all checks pass"""
-        if (not (0 <= r < self.size and 0 <= c < self.size)) and self.state[r][c] != 2 and self.state[r][c] != 1:
+        if (not (0 <= r < self.size and 0 <= c < self.size)) or self.state[r][c] == 2 or self.state[r][c] == 1:
             print(f"({r},{c}) is an invalid move!")
             sys.exit()
 
