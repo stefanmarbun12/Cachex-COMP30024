@@ -138,6 +138,8 @@ dmypy.json
 .idea/dictionaries
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
+.idea/inspectionsProfiles
+.idea/inspectionsProfiles/profiles_settings.xml
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids
