@@ -95,6 +95,9 @@ class Game:
                         elif move_type == "STEAL":
                             next_r = self.first_move[1]
                             next_c = self.first_move[0]
+                            if self.second_move:
+                                self.second_move = False
+                                self.state[next_c][next_r] = 0
                         else:
                             print(f"Invalid move from AI opponent: ({action})!")
                             sys.exit()
