@@ -50,6 +50,7 @@ while run:
         for button in buttons:
             button.show(game.screen)
         if game.check_win():
+            game.print_move_history()
             run = game.game_over_screen(game.check_win())
     # double processing
     pg.display.flip()

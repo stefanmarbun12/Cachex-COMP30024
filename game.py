@@ -33,6 +33,8 @@ class Game:
         self.first_move = None
         self.second_move = False
         self.last_move = None
+        self.move_history = []
+        self.state_history = []
 
     def load_data(self):
         """Load all the data (images, files, etc)"""
@@ -79,14 +81,14 @@ class Game:
                     if (self.first_move is None) and self.size % 2 == 1 and r == self.size // 2 and c == self.size // 2:
                         return
 
-                    self.validate_move(r, c)
+                    self.validate_move(r, c, "red" if self.move == 1 else "blue")
                     if self.check_win():
                         return
 
                     # AI opponent's next turn
                     if self.AI:
                         self.AI.turn("red", ("PLACE", r, c))
-                        print(f"Updated state with ({r},{c})")
+                        print(f"Red occupied ({r},{c})")
                         action = self.AI.action()
                         move_type = action[0]
                         if move_type == "PLACE":
@@ -102,20 +104,27 @@ class Game:
                             print(f"Invalid move from AI opponent: ({action})!")
                             sys.exit()
 
-                        self.validate_move(next_r, next_c)
+                        self.validate_move(next_r, next_c, "blue")
 
                         if move_type == "PLACE":
                             self.AI.turn("blue", ("PLACE", next_r, next_c))
-                            print(f"Updated state with ({next_r},{next_c})")
+                            print(f"Blue occupied ({next_r},{next_c})")
                         elif move_type == "STEAL":
                             self.AI.turn("blue", ("STEAL",))
-                            print(f"Updated state with steal")
+                            print(f"Blue stole Red's move")
                     return
 
-    def validate_move(self, r, c):
+    def print_move_history(self):
+        print("Game history:")
+        for move, state in zip(self.move_history, self.state_history):
+            print(move)
+            print_board(self.size, state)
+
+    def validate_move(self, r, c, color):
         """Updates game state with the new move if all checks pass"""
         if (not (0 <= r < self.size and 0 <= c < self.size)) or self.state[r][c] == 2 or self.state[r][c] == 1:
             print(f"({r},{c}) is an invalid move!")
+            self.print_move_history()
             sys.exit()
 
         self.state[r][c] = self.move
@@ -132,6 +141,16 @@ class Game:
         if self.first_move is None:
             self.first_move = (r, c)
             self.second_move = True
+
+        # update move and state histories
+        self.move_history.append(f"{color} occupied {r},{c}")
+        state_dict = {}
+        for row in range(self.size):
+            for col in range(self.size):
+                state = self.state[row][col]
+                if state != 0:
+                    state_dict[(row, col)] = "r" if state == 1 else "b"
+        self.state_history.append(state_dict)
 
     def check_diamond(self, r, c, player):
         to_clear = []
